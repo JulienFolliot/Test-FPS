@@ -51,6 +51,13 @@ void AFPS001Character::BeginPlay()
 		}
 	}
 
+	UCapsuleComponent* CP = GetCapsuleComponent();
+	if (IsValid(CP))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Add dynamic OnHit"));
+		CP->OnComponentHit.AddDynamic(this, &ThisClass::OnHit);
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////// Input
@@ -107,4 +114,12 @@ void AFPS001Character::SetHasRifle(bool bNewHasRifle)
 bool AFPS001Character::GetHasRifle()
 {
 	return bHasRifle;
+}
+
+void AFPS001Character::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherActor->IsA(AFPS001Projectile::StaticClass())) {
+		UE_LOG(LogTemp, Warning, TEXT("OnHit by a projectile lo"));
+	}
 }
