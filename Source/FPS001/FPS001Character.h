@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "CustomPlayerController.h"
 #include "FPS001Character.generated.h"
 
 class UInputComponent;
