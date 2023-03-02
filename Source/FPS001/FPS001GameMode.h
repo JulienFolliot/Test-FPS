@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "TP_WeaponComponent.h"
 #include "FPS001GameMode.generated.h"
 
 UCLASS(minimalapi)

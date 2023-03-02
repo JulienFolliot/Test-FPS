@@ -2,6 +2,8 @@
 
 #include "FPS001Character.h"
 #include "FPS001Projectile.h"
+#include "FPS001GameMode.h"
+#include "TP_WeaponComponent.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -14,8 +16,8 @@
 
 AFPS001Character::AFPS001Character()
 {
-	// Character doesnt have a rifle at start
-	bHasRifle = false;
+	// Character has a rifle at start
+	bHasRifle = true;
 	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -39,6 +41,10 @@ AFPS001Character::AFPS001Character()
 
 void AFPS001Character::BeginPlay()
 {
+	if (Controller == nullptr) {
+		Controller = GetWorld()->GetFirstPlayerController();
+	}
+
 	// Call the base class  
 	Super::BeginPlay();
 

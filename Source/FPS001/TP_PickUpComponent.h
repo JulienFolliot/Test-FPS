@@ -23,6 +23,7 @@ public:
 	FOnPickUp OnPickUp;
 
 	UTP_PickUpComponent();
+
 protected:
 
 	/** Called when the game starts */

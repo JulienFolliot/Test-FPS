@@ -22,12 +22,14 @@ void UTP_WeaponComponent::Fire()
 {
 	if (Character == nullptr || Character->GetController() == nullptr)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Character is NULLLLLLL"));
 		return;
 	}
 
 	// Try and fire a projectile
 	if (ProjectileClass != nullptr)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("ProjectileClass is NOT NULL"));
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
 		{
@@ -43,6 +45,9 @@ void UTP_WeaponComponent::Fire()
 			// Spawn the projectile at the muzzle
 			World->SpawnActor<AFPS001Projectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
 		}
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("ProjectileClass is NULLLLLLL"));
 	}
 	
 	// Try and play the sound if specified
@@ -65,9 +70,13 @@ void UTP_WeaponComponent::Fire()
 
 void UTP_WeaponComponent::AttachWeapon(AFPS001Character* TargetCharacter)
 {
+
+	UE_LOG(LogTemp, Warning, TEXT("AttachWeapon"));
+
 	Character = TargetCharacter;
 	if (Character == nullptr)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("AttachWeapon Charactzer is NULLLL"));
 		return;
 	}
 
@@ -81,17 +90,23 @@ void UTP_WeaponComponent::AttachWeapon(AFPS001Character* TargetCharacter)
 	// Set up action bindings
 	if (APlayerController* PlayerController = Cast<APlayerController>(Character->GetController()))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("R1"));
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
+			UE_LOG(LogTemp, Warning, TEXT("R2"));
 			// Set the priority of the mapping to 1, so that it overrides the Jump action with the Fire action when using touch input
 			Subsystem->AddMappingContext(FireMappingContext, 1);
 		}
 
 		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
 		{
+			UE_LOG(LogTemp, Warning, TEXT("R3"));
 			// Fire
 			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &UTP_WeaponComponent::Fire);
 		}
+	}
+	else {
+		UE_LOG(LogTemp, Warning, TEXT("AttachWeapon PlayerController is NULLLL"));
 	}
 }
 
