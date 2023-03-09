@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "CustomPlayerController.h"
-#include "PlayerStarter.h"
 #include "GameFramework/GameModeBase.h"
 
 
@@ -38,7 +37,7 @@ void ACustomPlayerController::Respawn()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Respawn Custom player"));
 
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerStarter::StaticClass(), FoundActors);
+	// UGameplayStatics::GetAllActorsOfClass(GetWorld(), PlayerStarter::StaticClass(), FoundActors);
 
 	APawn* DefaultPawn = WorldInstance->SpawnActor<APawn>(PlayerPawnClass, SpawnLocation, FRotator::ZeroRotator);
 	
