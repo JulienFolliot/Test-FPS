@@ -127,12 +127,22 @@ void AFPS001Character::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherAct
 {
 	if (OtherActor->IsA(AFPS001Projectile::StaticClass())) {
 		UE_LOG(LogTemp, Warning, TEXT("OnHit by a projectile lo"));
-		if (Controller->IsA(ACustomPlayerController::StaticClass())) {
+
+		ACustomPlayerController* TempController = Cast<ACustomPlayerController>(GetController());
+		
+		Destroy();
+		AFPS001GameMode* GameMode = GetWorld()->GetAuthGameMode<AFPS001GameMode>();
+		if (GameMode != nullptr)
+		{
+			GameMode->RestartPlayer(TempController);
+		}
+
+		/*if (Controller->IsA(ACustomPlayerController::StaticClass())) {
 			UE_LOG(LogTemp, Warning, TEXT("Controller"));
 		}
 		Controller->UnPossess();
 		GetMesh()->SetSimulatePhysics(true);
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		SetLifeSpan(20.0f);
+		SetLifeSpan(20.0f);*/
 	}
 }
